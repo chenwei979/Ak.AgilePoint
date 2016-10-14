@@ -9,12 +9,13 @@ namespace AgilePointAPI
         {
         }
 
-        public void Create(string workflowName, NameValue[] atrributes)
+        public void Create(string workflowName, object source)
         {
             var pid = WorkflowService.GetReleasedPID(workflowName);
             var piid = UUID.GetID();
             var workobjectid = UUID.GetID();
             var instanceTitle = GenerateInstanceTitle(workflowName);
+            var atrributes = GenerateAtrributes(source);
             var evt = WorkflowService.CreateProcInstEx(pid, piid, instanceTitle, workobjectid, string.Empty, string.Empty, atrributes, true);
             while (evt.Status == WFEvent.SENT)
             {

@@ -3,6 +3,7 @@ using Ascentn.Workflow.Base;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 
 namespace AgilePointAPI
 {
@@ -17,14 +18,15 @@ namespace AgilePointAPI
             WorkflowService = WorkflowServiceFactory.CreateWorkflowService(userAccount);
         }
 
-        public IEnumerable<NameValue> GenerateAtrributes(object source)
+        public NameValue[] GenerateAtrributes(object source)
         {
             var properties = ReflectionManager.Singleton.GetGetProperties(source);
-            foreach (var property in properties)
+
+            return properties.Select(property =>
             {
                 var propertyName = GetPropertyName(property.Name);
-                yield return new NameValue(propertyName, property.GetValue(source, null));
-            }
+                return new NameValue(propertyName, property.GetValue(source, null));
+            }).ToArray();
         }
 
         public string GetPropertyName(string name, string prefix = "/pd:AP/pd:processFields/pd:")
