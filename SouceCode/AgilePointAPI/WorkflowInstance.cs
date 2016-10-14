@@ -28,15 +28,23 @@ namespace AgilePointAPI
         }
     }
 
-    public class WorkflowInstanceManager
+    public abstract class WorkflowManager
     {
         public string UserAccount { get; private set; }
         public WCFWorkflowProxy WorkflowService { get; private set; }
 
-        public WorkflowInstanceManager(string userAccount)
+        public WorkflowManager(string userAccount)
         {
             UserAccount = userAccount;
             WorkflowService = WCFWorkflowProxyFactory.CreateWorkflowService(userAccount);
+        }
+
+    }
+
+    public class WorkflowInstanceManager : WorkflowManager
+    {
+        public WorkflowInstanceManager(string userAccount) : base(userAccount)
+        {
         }
 
         //<summary>
@@ -74,15 +82,10 @@ namespace AgilePointAPI
         }
     }
 
-    public class WorkflowTaskManager
+    public class WorkflowTaskManager : WorkflowManager
     {
-        public string UserAccount { get; private set; }
-        public WCFWorkflowProxy WorkflowService { get; private set; }
-
-        public WorkflowTaskManager(string userAccount)
+        public WorkflowTaskManager(string userAccount) : base(userAccount)
         {
-            UserAccount = userAccount;
-            WorkflowService = WCFWorkflowProxyFactory.CreateWorkflowService(userAccount);
         }
 
         public IList<WFManualWorkItem> GetMyTask()
