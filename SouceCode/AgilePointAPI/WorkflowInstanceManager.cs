@@ -9,13 +9,6 @@ namespace AgilePointAPI
         {
         }
 
-        //<summary>
-        // 创建流程实例
-        // defName 流程定义
-        // proInstName 表单名称
-        // atrributes 表单相关字段
-        //submiter 提交人 apdomain\\administrator 必须是域账户
-        //</summary>
         public void Create(string workflowName, NameValue[] atrributes)
         {
             var pid = WorkflowService.GetReleasedPID(workflowName);
@@ -30,9 +23,6 @@ namespace AgilePointAPI
             }
         }
 
-        // <summary>
-        // 取消流程实例
-        ///// </summary>
         public void Cancel()
         {
 
