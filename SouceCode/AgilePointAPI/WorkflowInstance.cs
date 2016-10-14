@@ -9,11 +9,5 @@ using System.Net;
 
 namespace AgilePointAPI
 {
-    public class Constant
-    {
-        public const string AppName = "Test";
-        public const string DomainName = "apdomain";
-        public const string AdministratorAccount = "Administrator";
-        public const string AdministratorPassword = "pass";
-    }
+    
 }
