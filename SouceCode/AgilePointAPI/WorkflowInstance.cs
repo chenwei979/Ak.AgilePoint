@@ -109,7 +109,7 @@ namespace AgilePointAPI
         private void Complete(string workItemId, bool approval, NameValue[] atrributes)
         {
             var task = GetTaskById(workItemId);
-            WorkflowService.SetCustomAttr(task.WorkObjectID, "/pd:AP/pd:processFields/pd:Approve", "true");
+            WorkflowService.SetCustomAttr(task.WorkObjectID, string.Format("/pd:AP/pd:processFields/pd:{0}ApproveResult", task.Name), approval);
             var evt = WorkflowService.CompleteWorkItem(task.WorkItemID);
             while (evt.Status == WFEvent.SENT)
             {
