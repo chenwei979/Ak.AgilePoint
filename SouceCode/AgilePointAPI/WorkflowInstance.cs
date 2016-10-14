@@ -12,6 +12,9 @@ namespace AgilePointAPI
     public class Constant
     {
         public const string AppName = "Test";
+        public const string DomainName = "apdomain";
+        public const string AdministratorAccount = "Administrator";
+        public const string AdministratorPassword = "pass";
     }
 
     public class WorkflowInstance
@@ -72,9 +75,9 @@ namespace AgilePointAPI
         public static WCFWorkflowProxy CreateWorkflowService(string initiator)
         {
             var appName = Constant.AppName;
-            var credential = new NetworkCredential("Administrator", "pass", "apdomain");
+            var credential = new NetworkCredential(Constant.AdministratorAccount, Constant.AdministratorPassword, Constant.DomainName);
             var workFlowServiceBindingName = Convert.ToString(ConfigurationManager.AppSettings["WorkFlowBindingUsed"]);
-            return new WCFWorkflowProxy(appName, "", "en-US", initiator, credential, workFlowServiceBindingName);
+            return new WCFWorkflowProxy(appName, string.Empty, "en-US", initiator, credential, workFlowServiceBindingName);
         }
     }
 }
