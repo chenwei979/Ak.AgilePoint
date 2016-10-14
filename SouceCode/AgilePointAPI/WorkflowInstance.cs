@@ -30,6 +30,15 @@ namespace AgilePointAPI
 
     public class WorkflowInstance
     {
+        public string UserAccount { get; private set; }
+        public WCFWorkflowProxy WorkflowService { get; private set; }
+
+        public WorkflowInstance(string userAccount)
+        {
+            UserAccount = userAccount;
+            WorkflowService = WCFWorkflowProxyFactory.CreateWorkflowService(userAccount);
+        }
+
         //<summary>
         // 创建流程实例
         // defName 流程定义
@@ -39,17 +48,15 @@ namespace AgilePointAPI
         //</summary>
         public void Create(string workflowName, string initiator, NameValue[] atrributes)
         {
-            var workflowService = WCFWorkflowProxyFactory.CreateWorkflowService(initiator);
-            var pid = workflowService.GetReleasedPID(workflowName);
+            var pid = WorkflowService.GetReleasedPID(workflowName);
             var piid = UUID.GetID();
             var workobjectid = UUID.GetID();
-            var evt = workflowService.CreateProcInstEx(pid, piid, workflowName + DateTime.Now.ToString("yyyyMMddHHmmss"), workobjectid, "", "", atrributes, true);
+            var evt = WorkflowService.CreateProcInstEx(pid, piid, workflowName + DateTime.Now.ToString("yyyyMMddHHmmss"), workobjectid, "", "", atrributes, true);
             while (evt.Status == WFEvent.SENT)
             {
                 System.Threading.Thread.Sleep(1000);
-                evt = workflowService.GetEvent(evt.EventID);
+                evt = WorkflowService.GetEvent(evt.EventID);
             }
-            Approve("", null);
         }
 
         // <summary>
@@ -59,29 +66,50 @@ namespace AgilePointAPI
         {
 
         }
-
-        public void Approve(string initiator, NameValue[] atrributes)
-        {
-            foreach (var task in workitems)
-            {
-                workflowService.SetCustomAttr(task.WorkObjectID, "/pd:AP/pd:processFields/pd:Approve", "true");
-                WFEvent evt = workflowService.CompleteWorkItem(task.WorkItemID);
-                while (evt.Status == WFEvent.SENT)
-                {
-                    System.Threading.Thread.Sleep(1000);
-                    evt = workflowService.GetEvent(evt.EventID);
-                }
-            }
-        }
     }
 
     public class WorkflowTask
     {
-        public IList<WFManualWorkItem> GetMyTask(string account)
+        public string UserAccount { get; private set; }
+        public WCFWorkflowProxy WorkflowService { get; private set; }
+
+        public WorkflowTask(string userAccount)
         {
-            var workflowService = WCFWorkflowProxyFactory.CreateWorkflowService(account);
+            UserAccount = userAccount;
+            WorkflowService = WCFWorkflowProxyFactory.CreateWorkflowService(userAccount);
+        }
+
+        public IList<WFManualWorkItem> GetMyTask()
+        {
             var status = string.Join(";", WFManualWorkItem.ASSIGNED, WFManualWorkItem.NEW, WFManualWorkItem.OVERDUE);
-            return workflowService.GetWorkListByUserID(account, status);
+            return WorkflowService.GetWorkListByUserID(UserAccount, status);
+        }
+
+        public WFManualWorkItem GetTaskById(string workItemId)
+        {
+            return WorkflowService.GetWorkItem(workItemId);
+        }
+
+        public void Approve(string workItemId, NameValue[] atrributes)
+        {
+            Complete(workItemId, true, atrributes);
+        }
+
+        public void Reject(string workItemId, NameValue[] atrributes)
+        {
+            Complete(workItemId, false, atrributes);
+        }
+
+        private void Complete(string workItemId, bool approval, NameValue[] atrributes)
+        {
+            var task = GetTaskById(workItemId);
+            WorkflowService.SetCustomAttr(task.WorkObjectID, "/pd:AP/pd:processFields/pd:Approve", "true");
+            var evt = WorkflowService.CompleteWorkItem(task.WorkItemID);
+            while (evt.Status == WFEvent.SENT)
+            {
+                System.Threading.Thread.Sleep(1000);
+                evt = WorkflowService.GetEvent(evt.EventID);
+            }
         }
     }
 }
