@@ -12,12 +12,23 @@ namespace AgilePointAPI
     {
         static void Main(string[] args)
         {
-            //var manager = new WorkflowInstanceManager("apdomain\\administrator");
-            //manager.Create("Lev", new { LeaveDays = 21 });
+            var manager = new WorkflowInstanceManager("apdomain\\administrator");
+            var applications = manager.MyApplication();
 
-            var manager = new WorkflowTaskManager("apdomain\\administrator");
-            var items = manager.GetMyTask();
-            manager.Approve(items.Last().WorkItemID, null);
+            //manager.Create("Lev", new
+            //{
+            //    LeaveDays = 6
+            //});
+
+            //var taskManager = new WorkflowTaskManager("apdomain\\administrator");
+            //var items = taskManager.GetMyTask();
+            //taskManager.Approve(items.Last().WorkItemID, new {
+            //    DepartmentManagerAccount = "apdomain\\alice",
+            //});
+
+            //var taskManager2 = new WorkflowTaskManager("apdomain\\alice");
+            //var items2 = taskManager2.GetMyTask();
+            //taskManager2.Reject(items2.Last().WorkItemID, null);
         }
     }
 }

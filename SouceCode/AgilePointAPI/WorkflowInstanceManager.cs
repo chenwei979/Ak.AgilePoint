@@ -34,6 +34,14 @@ namespace AgilePointAPI
             }
         }
 
+        public WFBaseProcessInstance[] MyApplication()
+        {
+            string status = WFProcessInstance.RUNNING;
+            WFAny any = WFAny.Create(status);
+            WFQueryExpr query = new WFQueryExpr("STATUS", SQLExpr.EQ, any, true);
+            return WorkflowService.QueryProcInsts(query);
+        }
+
         private string GenerateInstanceTitle(string workflowName)
         {
             return workflowName + DateTime.Now.ToString("yyyyMMddHHmmss");
