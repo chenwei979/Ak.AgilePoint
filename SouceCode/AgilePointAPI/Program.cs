@@ -13,7 +13,7 @@ namespace AgilePointAPI
         static void Main(string[] args)
         {
             WorkflowInstanceManager instance = new WorkflowInstanceManager("apdomain\\administrator");
-            instance.Create("Lev", new { Day = 21 });
+            instance.Create("Lev", new { LeaveDays = 21 });
         }
     }
 }
