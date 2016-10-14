@@ -74,13 +74,15 @@ namespace AgilePointAPI
             return WorkflowService.GetWorkItem(workItemId);
         }
 
-        public void Approve(string workItemId, NameValue[] atrributes)
+        public void Approve(string workItemId, object source)
         {
+            var atrributes = GenerateAtrributes(source);
             Complete(workItemId, true, atrributes);
         }
 
-        public void Reject(string workItemId, NameValue[] atrributes)
+        public void Reject(string workItemId, object source)
         {
+            var atrributes = GenerateAtrributes(source);
             Complete(workItemId, false, atrributes);
         }
 
