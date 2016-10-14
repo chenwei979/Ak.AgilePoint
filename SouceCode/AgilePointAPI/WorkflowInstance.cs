@@ -30,8 +30,6 @@ namespace AgilePointAPI
 
     public class WorkflowInstance
     {
-        public WCFWorkflowProxy workflowService = null;
-
         //<summary>
         // 创建流程实例
         // defName 流程定义
@@ -51,7 +49,7 @@ namespace AgilePointAPI
                 System.Threading.Thread.Sleep(1000);
                 evt = workflowService.GetEvent(evt.EventID);
             }
-            Approve("", "", "", null);
+            Approve("", null);
         }
 
         // <summary>
@@ -62,11 +60,11 @@ namespace AgilePointAPI
 
         }
 
-        public void Approve(string appName, string workflowName, string initiator, NameValue[] atrributes)
+        public void Approve(string initiator, NameValue[] atrributes)
         {
-            string Status = string.Format("{0};{1};{2}", WFManualWorkItem.ASSIGNED, WFManualWorkItem.OVERDUE, WFManualWorkItem.NEW);
-
-            var workitems = workflowService.GetWorkListByUserID("APDOMAIN\\Administrator", Status);
+            var workflowService = WCFWorkflowProxyFactory.CreateWorkflowService(initiator);
+            string status = string.Format("{0};{1};{2}", WFManualWorkItem.ASSIGNED, WFManualWorkItem.OVERDUE, WFManualWorkItem.NEW);
+            var workitems = workflowService.GetWorkListByUserID("APDOMAIN\\Administrator", status);
 
             foreach (var task in workitems)
             {
