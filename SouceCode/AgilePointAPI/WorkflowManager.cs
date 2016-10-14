@@ -59,7 +59,7 @@ namespace AgilePointAPI
             else
             {
                 var properties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public);
-                _cache.Add(key, properties);
+                if (!_cache.ContainsKey(key)) _cache.Add(key, properties);
                 return properties;
             }
         }
