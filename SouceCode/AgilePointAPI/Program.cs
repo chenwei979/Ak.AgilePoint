@@ -19,7 +19,7 @@ namespace AgilePointAPI
             //直线领导
             var pars = new List<NameValue>();
             pars.Add(new NameValue("/pd:AP/pd:processFields/pd:Day", 2));
-            instance.Create("Test", "Lev", "apdomain\\administrator", pars.ToArray());
+            instance.Create("Lev", "apdomain\\administrator", pars.ToArray());
 
 
             //var result = GetBaseProcDefID();
