@@ -62,10 +62,6 @@ namespace AgilePointAPI
 
         public void Approve(string initiator, NameValue[] atrributes)
         {
-            var workflowService = WCFWorkflowProxyFactory.CreateWorkflowService(initiator);
-            var status = string.Join(";", WFManualWorkItem.ASSIGNED, WFManualWorkItem.NEW, WFManualWorkItem.OVERDUE);
-            var workitems = workflowService.GetWorkListByUserID(initiator, status);
-
             foreach (var task in workitems)
             {
                 workflowService.SetCustomAttr(task.WorkObjectID, "/pd:AP/pd:processFields/pd:Approve", "true");
@@ -76,6 +72,16 @@ namespace AgilePointAPI
                     evt = workflowService.GetEvent(evt.EventID);
                 }
             }
+        }
+    }
+
+    public class WorkflowTask
+    {
+        public IList<WFManualWorkItem> GetMyTask(string account)
+        {
+            var workflowService = WCFWorkflowProxyFactory.CreateWorkflowService(account);
+            var status = string.Join(";", WFManualWorkItem.ASSIGNED, WFManualWorkItem.NEW, WFManualWorkItem.OVERDUE);
+            return workflowService.GetWorkListByUserID(account, status);
         }
     }
 }
