@@ -20,6 +20,7 @@ namespace AgilePointAPI
 
         public NameValue[] GenerateAtrributes(object source)
         {
+            if (source == null) return new NameValue[0];
             var properties = ReflectionManager.Singleton.GetGetProperties(source);
 
             return properties.Select(property =>
