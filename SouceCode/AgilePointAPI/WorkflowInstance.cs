@@ -46,7 +46,7 @@ namespace AgilePointAPI
         // atrributes 表单相关字段
         //submiter 提交人 apdomain\\administrator 必须是域账户
         //</summary>
-        public void Create(string workflowName, string initiator, NameValue[] atrributes)
+        public void Create(string workflowName, NameValue[] atrributes)
         {
             var pid = WorkflowService.GetReleasedPID(workflowName);
             var piid = UUID.GetID();
