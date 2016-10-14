@@ -1,5 +1,6 @@
 ﻿using Ascentn.AgilePoint.WCFClient;
 using Ascentn.Workflow.Base;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -18,7 +19,7 @@ namespace AgilePointAPI
 
         public IEnumerable<NameValue> GenerateAtrributes(object source)
         {
-            var properties = source.GetType().GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public);
+            var properties = ReflectionManager.Singleton.GetGetProperties(source);
             foreach (var property in properties)
             {
                 var propertyName = GetPropertyName(property.Name);
@@ -29,6 +30,38 @@ namespace AgilePointAPI
         public string GetPropertyName(string name, string prefix = "/pd:AP/pd:processFields/pd:")
         {
             return string.Concat(prefix, name);
+        }
+    }
+
+    public class ReflectionManager
+    {
+        public static ReflectionManager Singleton { get; private set; }
+
+        static ReflectionManager()
+        {
+            Singleton = new ReflectionManager();
+        }
+
+        private ReflectionManager()
+        {
+        }
+
+        private Hashtable _cache = new Hashtable();
+
+        public PropertyInfo[] GetGetProperties(object obj)
+        {
+            var type = obj.GetType();
+            var key = type.FullName;
+            if (_cache.ContainsKey(key))
+            {
+                return _cache[key] as PropertyInfo[];
+            }
+            else
+            {
+                var properties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public);
+                _cache.Add(key, properties);
+                return properties;
+            }
         }
     }
 }
