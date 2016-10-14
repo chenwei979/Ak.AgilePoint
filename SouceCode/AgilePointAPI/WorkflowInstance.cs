@@ -51,7 +51,8 @@ namespace AgilePointAPI
             var pid = WorkflowService.GetReleasedPID(workflowName);
             var piid = UUID.GetID();
             var workobjectid = UUID.GetID();
-            var evt = WorkflowService.CreateProcInstEx(pid, piid, workflowName + DateTime.Now.ToString("yyyyMMddHHmmss"), workobjectid, "", "", atrributes, true);
+            var instanceTitle = GenerateInstanceTitle(workflowName);
+            var evt = WorkflowService.CreateProcInstEx(pid, piid, instanceTitle, workobjectid, string.Empty, string.Empty, atrributes, true);
             while (evt.Status == WFEvent.SENT)
             {
                 System.Threading.Thread.Sleep(1000);
@@ -65,6 +66,11 @@ namespace AgilePointAPI
         public void Cancel()
         {
 
+        }
+
+        private string GenerateInstanceTitle(string workflowName)
+        {
+            return workflowName + DateTime.Now.ToString("yyyyMMddHHmmss");
         }
     }
 
