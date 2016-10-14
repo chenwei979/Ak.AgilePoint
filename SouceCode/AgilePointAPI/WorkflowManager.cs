@@ -10,7 +10,7 @@ namespace AgilePointAPI
         public WorkflowManager(string userAccount)
         {
             UserAccount = userAccount;
-            WorkflowService = WCFWorkflowProxyFactory.CreateWorkflowService(userAccount);
+            WorkflowService = WorkflowServiceFactory.CreateWorkflowService(userAccount);
         }
     }
 }

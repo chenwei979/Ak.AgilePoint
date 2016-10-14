@@ -17,7 +17,7 @@ namespace AgilePointAPI
         public const string AdministratorPassword = "pass";
     }
 
-    public class WCFWorkflowProxyFactory
+    public class WorkflowServiceFactory
     {
         public static WCFWorkflowProxy CreateWorkflowService(string initiator)
         {
