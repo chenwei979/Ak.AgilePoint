@@ -23,9 +23,14 @@ namespace AgilePointAPI
             }
         }
 
-        public void Cancel()
+        public void Cancel(string PIID)
         {
-
+            var evt = WorkflowService.CancelProcInst(PIID);
+            while (evt.Status == WFEvent.SENT)
+            {
+                System.Threading.Thread.Sleep(1000);
+                evt = WorkflowService.GetEvent(evt.EventID);
+            }
         }
 
         private string GenerateInstanceTitle(string workflowName)
