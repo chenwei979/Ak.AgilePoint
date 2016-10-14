@@ -79,6 +79,7 @@
     <Compile Include="Task.cs" />
     <Compile Include="WorkflowInstance.cs" />
     <Compile Include="WorkflowInstanceManager.cs" />
+    <Compile Include="WorkflowTaskManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
