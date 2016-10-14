@@ -63,8 +63,8 @@ namespace AgilePointAPI
         public void Approve(string initiator, NameValue[] atrributes)
         {
             var workflowService = WCFWorkflowProxyFactory.CreateWorkflowService(initiator);
-            string status = string.Format("{0};{1};{2}", WFManualWorkItem.ASSIGNED, WFManualWorkItem.OVERDUE, WFManualWorkItem.NEW);
-            var workitems = workflowService.GetWorkListByUserID("APDOMAIN\\Administrator", status);
+            var status = string.Join(";", WFManualWorkItem.ASSIGNED, WFManualWorkItem.NEW, WFManualWorkItem.OVERDUE);
+            var workitems = workflowService.GetWorkListByUserID(initiator, status);
 
             foreach (var task in workitems)
             {
