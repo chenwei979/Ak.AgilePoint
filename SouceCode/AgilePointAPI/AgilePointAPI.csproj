@@ -80,6 +80,7 @@
     <Compile Include="WorkflowInstance.cs" />
     <Compile Include="WorkflowInstanceManager.cs" />
     <Compile Include="WorkflowManager.cs" />
+    <Compile Include="WorkflowServiceFactory.cs" />
     <Compile Include="WorkflowTaskManager.cs" />
   </ItemGroup>
   <ItemGroup>
