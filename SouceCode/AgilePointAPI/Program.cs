@@ -32,14 +32,17 @@ namespace AgilePointAPI
             //taskManager2.Reject(items2.Last().WorkItemID, null);
 
             var delegateManager = new WorkflowDelegateManager("apdomain\\administrator");
+
+            var delegationId = string.Empty;
             delegateManager.AddDelegation(new WorkflowDelegation()
             {
+                Enable = true,
                 StartDate = new DateTime(2016, 10, 1),
                 EndDate = new DateTime(2016, 10, 11),
                 Description = "Bruce Test Delegation",
                 FromUser = "",
                 ToUser = "",
-            });
+            }, out delegationId);
         }
     }
 }
