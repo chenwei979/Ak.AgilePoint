@@ -1,21 +1,44 @@
-﻿using Ascentn.AgilePoint.WCFClient;
-using Ascentn.Workflow.Base;
+﻿using Ascentn.Workflow.Base;
 using System.Collections;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
+using System;
+using Ascentn.AgilePoint.WCFClient.AdminService;
 
 namespace AgilePointAPI
 {
     public abstract class WorkflowManager
     {
+        private Lazy<IWFWorkflowService> _workflowService;
+        private Lazy<IWCFAdminService> _adminService;
+
         public string UserAccount { get; private set; }
-        public IWFWorkflowService WorkflowService { get; private set; }
+        public IWFWorkflowService WorkflowService
+        {
+            get
+            {
+                return _workflowService.Value;
+            }
+        }
+        public IWCFAdminService AdminService
+        {
+            get
+            {
+                return _adminService.Value;
+            }
+        }
 
         public WorkflowManager(string userAccount)
         {
             UserAccount = userAccount;
-            WorkflowService = WorkflowServiceFactory.CreateWorkflowService(userAccount);
+            _workflowService = new Lazy<IWFWorkflowService>(() =>
+            {
+                return WorkflowServiceFactory.CreateWorkflowService(userAccount);
+            });
+            _adminService = new Lazy<IWCFAdminService>(() =>
+            {
+                return WorkflowServiceFactory.CreateAdminService();
+            });
         }
 
         public NameValue[] GenerateAtrributes(object source)
