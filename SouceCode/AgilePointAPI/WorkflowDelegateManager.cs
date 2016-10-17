@@ -12,34 +12,36 @@ namespace AgilePointAPI
         {
         }
 
-        public bool AddDelegation()
+        public bool AddDelegation(WorkflowDelegation delegation)
         {
-            AdminService.AddDelegation(null, new WFDelegation()
+            var delegationObj = AdminService.AddDelegation(null, new WFDelegation()
             {
-                StartDate = new DateTime(2016, 10, 1),
-                EndDate = new DateTime(2016, 10, 11),
-                Description = "Bruce Test Delegation",
-                FromUser = "",
-                ToUser = "",
-                Status = ""
+                ProcDefIDS = delegation.ProcDefIDS,
+                FromUser = delegation.FromUser,
+                ToUser = delegation.ToUser,
+                StartDate = delegation.StartDate,
+                EndDate = delegation.EndDate,
+                Description = delegation.Description
             });
+
+            if (delegation.Enable) return delegationObj.Active();
             return true;
         }
     }
 
     public class WorkflowDelegation
     {
-        public string Status { get; set; }
-        public string RecWeekdaysString { get; set; }
-
-        public string CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public string LastUpdatedBy { get; set; }
-        public DateTime LastUpdatedDate { get; set; }
-        public string CancelledBy { get; set; }
-        public DateTime CancelledDate { get; set; }
+        public string CreatedBy { get; private set; }
+        public DateTime CreatedDate { get; private set; }
+        public string LastUpdatedBy { get; private set; }
+        public DateTime LastUpdatedDate { get; private set; }
+        public string CancelledBy { get; private set; }
+        public DateTime CancelledDate { get; private set; }
 
 
+        public string DelegationID { get; private set; }
+        public string Status { get; private set; }
+        public string RecWeekdaysString { get; private set; }
 
         public string ProcDefIDS { get; set; }
         public string FromUser { get; set; }
@@ -48,6 +50,6 @@ namespace AgilePointAPI
         public DateTime EndDate { get; set; }
         public string Description { get; set; }
 
-        public string DelegationID { get; set; }
+        public bool Enable { get; set; }
     }
 }
