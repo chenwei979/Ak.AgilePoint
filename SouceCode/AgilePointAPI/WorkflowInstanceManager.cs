@@ -54,7 +54,7 @@ namespace AgilePointAPI
 
         private WFBaseProcessInstance[] GetPagedMyApplication(string status, int pageIndex, int pageSize)
         {
-            string where = string.Format("[STATUS] = '{3}' ORDER BY [STARTED_DATE] OFFSET {0} ROWS FETCH NEXT {1} ROWS ONLY;", (pageIndex - 1) * pageSize, pageSize, status);
+            string where = string.Format("[STATUS] = '{2}' ORDER BY [STARTED_DATE] OFFSET {0} ROWS FETCH NEXT {1} ROWS ONLY;", (pageIndex - 1) * pageSize, pageSize, status);
             return WorkflowService.QueryProcInstsEx(where);
         }
 
