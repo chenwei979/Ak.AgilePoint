@@ -1,9 +1,16 @@
-﻿using Ascentn.Workflow.Base;
+﻿using Ascentn.AgilePoint.WCFClient.AdminService;
+using Ascentn.Workflow.Base;
+using System;
 
 namespace AgilePointAPI
 {
     public class WorkflowDelegateManager : WorkflowManager
     {
+        public Lazy<IWCFAdminService> AdminService = new Lazy<IWCFAdminService>(() =>
+        {
+            return WorkflowServiceFactory.CreateAdminService();
+        });
+
         public WorkflowDelegateManager(string userAccount) : base(userAccount)
         {
         }
