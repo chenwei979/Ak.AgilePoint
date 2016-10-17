@@ -12,7 +12,7 @@ namespace AgilePointAPI
         {
         }
 
-        public bool AddDelegation(WorkflowDelegation delegation)
+        public bool AddDelegation(WorkflowDelegation delegation, out string delegationId)
         {
             var delegationObj = AdminService.AddDelegation(null, new WFDelegation()
             {
@@ -24,8 +24,10 @@ namespace AgilePointAPI
                 Description = delegation.Description
             });
 
-            if (delegation.Enable) return delegationObj.Active();
-            return true;
+            if (delegationObj == null) throw new Exception("delegationObj is null.");
+
+            delegationId = delegationObj.DelegationID;
+            return delegation.Enable ? delegationObj.Active() : true;
         }
     }
 
