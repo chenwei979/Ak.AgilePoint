@@ -40,8 +40,8 @@ namespace AgilePointAPI
                 StartDate = new DateTime(2016, 10, 1),
                 EndDate = new DateTime(2016, 10, 11),
                 Description = "Bruce Test Delegation",
-                FromUser = "",
-                ToUser = "",
+                FromUser = "apdomain\\administrator",
+                ToUser = "apdomain\\alice",
             }, out delegationId);
         }
     }
