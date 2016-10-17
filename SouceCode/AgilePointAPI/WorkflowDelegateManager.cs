@@ -1,6 +1,7 @@
-﻿using Ascentn.AgilePoint.WCFClient.AdminService;
-using Ascentn.Workflow.Base;
+﻿using Ascentn.Workflow.Base;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AgilePointAPI
 {
@@ -8,6 +9,15 @@ namespace AgilePointAPI
     {
         public WorkflowDelegateManager(string userAccount) : base(userAccount)
         {
+        }
+
+        public IList<WorkflowDelegation> GetDelegations(string from)
+        {
+            return AdminService.GetDelegations(null, from, string.Empty, string.Empty).Select(item =>
+            {
+                WorkflowDelegation delegation = item;
+                return delegation;
+            }).ToList();
         }
 
         public bool AddDelegation(WorkflowDelegation delegation, out string delegationId)
@@ -51,5 +61,29 @@ namespace AgilePointAPI
         public string Description { get; set; }
 
         public bool Enable { get; set; }
+
+        public static implicit operator WorkflowDelegation(WFDelegation delegation)
+        {
+            return new WorkflowDelegation()
+            {
+                CreatedBy = delegation.CreatedBy,
+                CreatedDate = delegation.CreatedDate,
+                CancelledBy = delegation.CancelledBy,
+                CancelledDate = delegation.CancelledDate,
+                LastUpdatedBy = delegation.LastUpdatedBy,
+                LastUpdatedDate = delegation.LastUpdatedDate,
+
+                DelegationID = delegation.DelegationID,
+                Status = delegation.Status,
+                RecWeekdaysString = delegation.RecWeekdaysString,
+
+                ProcDefIDS = delegation.ProcDefIDS,
+                FromUser = delegation.FromUser,
+                ToUser = delegation.ToUser,
+                StartDate = delegation.StartDate,
+                EndDate = delegation.EndDate,
+                Description = delegation.Description
+            };
+        }
     }
 }
