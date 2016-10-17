@@ -13,7 +13,8 @@ namespace AgilePointAPI
         static void Main(string[] args)
         {
             var manager = new WorkflowInstanceManager("apdomain\\administrator");
-            var applications = manager.MyApplication();
+            var applications = manager.GetMyApplication();
+            var applications2 = manager.GetPagedMyApplication(2, 3);
 
             //manager.Create("Lev", new
             //{
