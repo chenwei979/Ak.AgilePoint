@@ -76,6 +76,7 @@
     <Compile Include="Common.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorkflowDelegateManager.cs" />
     <Compile Include="WorkflowInstanceManager.cs" />
     <Compile Include="WorkflowManager.cs" />
     <Compile Include="WorkflowServiceFactory.cs" />

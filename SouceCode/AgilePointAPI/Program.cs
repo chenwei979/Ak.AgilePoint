@@ -14,7 +14,7 @@ namespace AgilePointAPI
         {
             var manager = new WorkflowInstanceManager("apdomain\\administrator");
             var applications = manager.GetMyApplication();
-            var applications2 = manager.GetPagedMyApplication(4, 8);
+            var applications2 = manager.GetPagedMyPenddingApplication(4, 8);
 
             //manager.Create("Lev", new
             //{
