@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AgilePointAPI
 {
-    public class WorkflowTaskManager : WorkflowManager
+    public class WorkflowTaskManager : WorkflowBaseManager
     {
         public WorkflowTaskManager(string userAccount) : base(userAccount)
         {

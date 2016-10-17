@@ -3,7 +3,7 @@ using System;
 
 namespace AgilePointAPI
 {
-    public class WorkflowInstanceManager : WorkflowManager
+    public class WorkflowInstanceManager : WorkflowBaseManager
     {
         public WorkflowInstanceManager(string userAccount) : base(userAccount)
         {

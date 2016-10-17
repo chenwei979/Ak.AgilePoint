@@ -7,7 +7,7 @@ using Ascentn.AgilePoint.WCFClient.AdminService;
 
 namespace AgilePointAPI
 {
-    public abstract class WorkflowManager
+    public abstract class WorkflowBaseManager
     {
         private Lazy<IWFWorkflowService> _workflowService;
         private Lazy<IWCFAdminService> _adminService;
@@ -28,7 +28,7 @@ namespace AgilePointAPI
             }
         }
 
-        public WorkflowManager(string userAccount)
+        public WorkflowBaseManager(string userAccount)
         {
             UserAccount = userAccount;
             _workflowService = new Lazy<IWFWorkflowService>(() =>
