@@ -57,6 +57,14 @@ namespace AgilePointAPI
         {
             return string.Concat(prefix, name);
         }
+
+        public WCFClientInfo GetServiceInfo()
+        {
+            return new WCFClientInfo()
+            {
+
+            };
+        }
     }
 
     public class ReflectionManager
