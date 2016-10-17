@@ -37,6 +37,11 @@ namespace AgilePointAPI
             delegationId = delegationObj.DelegationID;
             return delegation.Enable ? delegationObj.Active() : true;
         }
+
+        public void DeleteDelegation(string delegationId)
+        {
+            AdminService.RemoveDelegation(null, delegationId);
+        }
     }
 
     public class WorkflowDelegation
