@@ -12,9 +12,9 @@ namespace AgilePointAPI
     {
         static void Main(string[] args)
         {
-            var manager = new WorkflowInstanceManager("apdomain\\administrator");
-            var applications = manager.GetMyApplication();
-            var applications2 = manager.GetPagedMyPenddingApplication(4, 8);
+            //var manager = new WorkflowInstanceManager("apdomain\\administrator");
+            //var applications = manager.GetMyApplication();
+            //var applications2 = manager.GetPagedMyPenddingApplication(4, 8);
 
             //manager.Create("Lev", new
             //{
@@ -30,6 +30,16 @@ namespace AgilePointAPI
             //var taskManager2 = new WorkflowTaskManager("apdomain\\alice");
             //var items2 = taskManager2.GetMyTask();
             //taskManager2.Reject(items2.Last().WorkItemID, null);
+
+            var delegateManager = new WorkflowDelegateManager("apdomain\\administrator");
+            delegateManager.AddDelegation(new WorkflowDelegation()
+            {
+                StartDate = new DateTime(2016, 10, 1),
+                EndDate = new DateTime(2016, 10, 11),
+                Description = "Bruce Test Delegation",
+                FromUser = "",
+                ToUser = "",
+            });
         }
     }
 }
