@@ -42,9 +42,19 @@ namespace AgilePointAPI
             return WorkflowService.QueryProcInsts(query);
         }
 
-        public WFBaseProcessInstance[] GetPagedMyApplication(int pageIndex, int pageSize)
+        public WFBaseProcessInstance[] GetPagedMyPenddingApplication(int pageIndex, int pageSize)
         {
-            string where = string.Format("[STATUS] = 'Running' ORDER BY [STARTED_DATE] OFFSET {0} ROWS FETCH NEXT {1} ROWS ONLY;", (pageIndex - 1) * pageSize, pageSize);
+            return GetPagedMyApplication(WFProcessInstance.RUNNING, pageIndex, pageSize);
+        }
+
+        public WFBaseProcessInstance[] GetPagedMyCompletedApplication(int pageIndex, int pageSize)
+        {
+            return GetPagedMyApplication(WFProcessInstance.COMPLETED, pageIndex, pageSize);
+        }
+
+        private WFBaseProcessInstance[] GetPagedMyApplication(string status, int pageIndex, int pageSize)
+        {
+            string where = string.Format("[STATUS] = '{3}' ORDER BY [STARTED_DATE] OFFSET {0} ROWS FETCH NEXT {1} ROWS ONLY;", (pageIndex - 1) * pageSize, pageSize, status);
             return WorkflowService.QueryProcInstsEx(where);
         }
 
