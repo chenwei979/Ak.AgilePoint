@@ -79,7 +79,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkflowDelegationManager.cs" />
     <Compile Include="WorkflowInstanceManager.cs" />
-    <Compile Include="WorkflowManager.cs" />
+    <Compile Include="WorkflowBaseManager.cs" />
     <Compile Include="WorkflowServiceFactory.cs" />
     <Compile Include="WorkflowTaskManager.cs" />
   </ItemGroup>
