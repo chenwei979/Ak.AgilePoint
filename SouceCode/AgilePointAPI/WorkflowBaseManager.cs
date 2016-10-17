@@ -65,6 +65,7 @@ namespace AgilePointAPI
                 Locale = Constant.Locale,
                 AppName = Constant.AppName,
                 UserName = Constant.AdministratorAccount,
+                //UserName = "apdomain\\administrator",
             };
         }
     }
