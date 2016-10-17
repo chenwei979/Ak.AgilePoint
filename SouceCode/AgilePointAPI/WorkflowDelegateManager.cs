@@ -38,6 +38,25 @@ namespace AgilePointAPI
             return delegation.Enable ? delegationObj.Active() : true;
         }
 
+        public bool UpdateDelegation(WorkflowDelegation delegation)
+        {
+            var delegationObj = AdminService.UpdateDelegation(null, new WFDelegation()
+            {
+                DelegationID = delegation.DelegationID,
+
+                ProcDefIDS = delegation.ProcDefIDS,
+                FromUser = delegation.FromUser,
+                ToUser = delegation.ToUser,
+                StartDate = delegation.StartDate,
+                EndDate = delegation.EndDate,
+                Description = delegation.Description
+            });
+
+            if (delegationObj == null) throw new Exception("delegationObj is null.");
+
+            return delegation.Enable ? delegationObj.Active() : true;
+        }
+
         public void DeleteDelegation(string delegationId)
         {
             AdminService.RemoveDelegation(null, delegationId);
