@@ -13,7 +13,7 @@ namespace AgilePointAPI
 
         public IList<WorkflowDelegation> GetDelegations(string from)
         {
-            return AdminService.GetDelegations(null, from, string.Empty, string.Empty).Select(item =>
+            return AdminService.GetDelegations(GetServiceInfo(), from, string.Empty, string.Empty).Select(item =>
             {
                 WorkflowDelegation delegation = item;
                 return delegation;
@@ -22,7 +22,7 @@ namespace AgilePointAPI
 
         public bool AddDelegation(WorkflowDelegation delegation, out string delegationId)
         {
-            var delegationObj = AdminService.AddDelegation(null, new WFDelegation()
+            var delegationObj = AdminService.AddDelegation(GetServiceInfo(), new WFDelegation()
             {
                 ProcDefIDS = delegation.ProcDefIDS,
                 FromUser = delegation.FromUser,
@@ -40,7 +40,7 @@ namespace AgilePointAPI
 
         public bool UpdateDelegation(WorkflowDelegation delegation)
         {
-            var delegationObj = AdminService.UpdateDelegation(null, new WFDelegation()
+            var delegationObj = AdminService.UpdateDelegation(GetServiceInfo(), new WFDelegation()
             {
                 DelegationID = delegation.DelegationID,
 
@@ -59,7 +59,7 @@ namespace AgilePointAPI
 
         public void DeleteDelegation(string delegationId)
         {
-            AdminService.RemoveDelegation(null, delegationId);
+            AdminService.RemoveDelegation(GetServiceInfo(), delegationId);
         }
     }
 
