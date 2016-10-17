@@ -1,5 +1,6 @@
 ﻿using Ascentn.AgilePoint.WCFClient;
 using Ascentn.AgilePoint.WCFClient.AdminService;
+using Ascentn.Workflow.Base;
 using System;
 using System.Configuration;
 using System.Net;
@@ -8,7 +9,7 @@ namespace AgilePointAPI
 {
     public class WorkflowServiceFactory
     {
-        public static WCFWorkflowProxy CreateWorkflowService(string initiator)
+        public static IWFWorkflowService CreateWorkflowService(string initiator)
         {
             var appName = Constant.AppName;
             var credential = new NetworkCredential(Constant.AdministratorAccount, Constant.AdministratorPassword, Constant.DomainName);
