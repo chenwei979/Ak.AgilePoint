@@ -62,7 +62,9 @@ namespace AgilePointAPI
         {
             return new WCFClientInfo()
             {
-
+                Locale = Constant.Locale,
+                AppName = Constant.AppName,
+                UserName = Constant.AdministratorAccount,
             };
         }
     }
