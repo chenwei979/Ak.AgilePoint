@@ -12,15 +12,17 @@ namespace AgilePointAPI
     {
         static void Main(string[] args)
         {
+            /* Instance */
             //var manager = new WorkflowInstanceManager("apdomain\\administrator");
             //var applications = manager.GetMyApplication();
             //var applications2 = manager.GetPagedMyPenddingApplication(4, 8);
-
             //manager.Create("Lev", new
             //{
             //    LeaveDays = 6
             //});
 
+
+            /* Task */
             //var taskManager = new WorkflowTaskManager("apdomain\\administrator");
             //var items = taskManager.GetMyTask();
             //taskManager.Approve(items.Last().WorkItemID, new {
@@ -31,7 +33,9 @@ namespace AgilePointAPI
             //var items2 = taskManager2.GetMyTask();
             //taskManager2.Reject(items2.Last().WorkItemID, null);
 
-            var delegateManager = new WorkflowDelegateManager("apdomain\\administrator");
+
+            /* Delegation */
+            var delegateManager = new WorkflowDelegationManager("apdomain\\administrator");
 
             var delegationId = string.Empty;
             delegateManager.AddDelegation(new WorkflowDelegation()

@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace AgilePointAPI
 {
-    public class WorkflowDelegateManager : WorkflowManager
+    public class WorkflowDelegationManager : WorkflowManager
     {
-        public WorkflowDelegateManager(string userAccount) : base(userAccount)
+        public WorkflowDelegationManager(string userAccount) : base(userAccount)
         {
         }
 
