@@ -19,8 +19,8 @@ namespace AgilePointAPI
 
         public static IWCFAdminService CreateAdminService()
         {
-            var workFlowServiceBindingName = Convert.ToString(ConfigurationManager.AppSettings["WorkFlowBindingUsed"]);
-            return new WCFAdminServiceClient();
+            var workFlowServiceBindingName = Convert.ToString(ConfigurationManager.AppSettings["AdminBindingUsed"]);
+            return new WCFAdminServiceClient(workFlowServiceBindingName);
         }
     }
 
