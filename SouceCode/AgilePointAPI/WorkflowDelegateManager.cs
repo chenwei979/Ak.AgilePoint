@@ -6,8 +6,6 @@ namespace AgilePointAPI
 {
     public class WorkflowDelegateManager : WorkflowManager
     {
-
-
         public WorkflowDelegateManager(string userAccount) : base(userAccount)
         {
         }
